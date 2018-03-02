@@ -1,12 +1,12 @@
-var deck = $(".deck");
 var card1;
 var card2;
-// create an array to hold open cards
+var matchCount = 0;
+var deck = $(".deck");
+
+// Create an array to hold open cards
 var openCards = [];
 
-/*
- * Create a list that holds all of your cards
- */
+// Create a list that holds all of the cards
 var cards = [
     "diamond",
     "plane",
@@ -17,8 +17,6 @@ var cards = [
     "bicycle",
     "bomb"
 ]
-
-
 
 /*
  * Display the cards on the page
@@ -41,21 +39,20 @@ function shuffle(array) {
     return array;
 }
 
-//  Deal Function
+// Deal Function
 function deal(cards){
-    // deal all the cards needed
+
+    // Deal all the cards needed
     for (i=0; i < cards.length; i++) {
         deck.append('<li class ="card"><i class ="fa fa-' + cards[i] + '"></i></li>');
     }
 }
 
 // Shuffle and Deal two sets of cards
-// shuffle(cards);
+shuffle(cards);
 deal(cards);
-// shuffle(cards);
+shuffle(cards);
 deal(cards);
-
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -68,16 +65,9 @@ deal(cards);
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-function areBothCardsTheSame(){
-    if(openCards[0] === openCards[1]){
-        return true;
-    } else{
-        return false;
-    }
-}
-
+ // Add card1 and card2 to the empthy array
 $(".card").on("click", function() {
-    
+
     if(openCards.length == 0 ){
         card1 = this;
         openAndShow($(this));
@@ -134,6 +124,18 @@ function matchOrClose(card1, card2, faClass){
     $('.' + faClass).parent().removeClass("animated headShake"); 
     $('.' + faClass).parent().addClass("match animated bounce");
 
+    //display a message with final score when the cards have matched
+    matchCount++;
+    actualCount = counter + 1;
+    if(matchCount == 8){
+        swal({
+            title: "Congratulations! You won!",
+            text: "With " + actualCount + " moves and 2 stars.\n Wooohooooooooo",
+            icon: "success",
+            button: "Start!",
+          });
+    
+    }
 };
 
 function clearOpenCardsArray(){
@@ -162,10 +164,6 @@ $(".restart").click(function(){
     $(".moves").text(counter);
 });
 
-
-
-
-//display a message with final score when the cards have matched
 
 
 
