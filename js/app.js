@@ -53,9 +53,9 @@ $(document).ready(function() {
     }
 
     // Shuffle and Deal two sets of cards
-    // shuffle(cards);
+    shuffle(cards);
     deal(cards);
-    // shuffle(cards);
+    shuffle(cards);
     deal(cards);
 
     /*
