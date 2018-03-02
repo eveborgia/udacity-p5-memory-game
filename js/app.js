@@ -4,7 +4,8 @@ $(document).ready(function() {
     var matchCount = 0;
     var starCount = 3;
     var deck = $(".deck");
-
+    var timerStart = Date.now();
+    var timerEnd;
 
     // Create an array to hold open cards
     var openCards = [];
@@ -52,9 +53,9 @@ $(document).ready(function() {
     }
 
     // Shuffle and Deal two sets of cards
-    shuffle(cards);
+    // shuffle(cards);
     deal(cards);
-    shuffle(cards);
+    // shuffle(cards);
     deal(cards);
 
     /*
@@ -117,9 +118,11 @@ $(document).ready(function() {
         matchCount++;
         actualCount = moveCounter + 1;
         if(matchCount == 8){
+           timerEnd = Date.now();
+           seconds = (timerEnd - timerStart) / 1000;
             swal({
                 title: "Congratulations! You won!",
-                text: "With " + actualCount + " moves and " + starCount + " stars.\n Wooohooooooooo",
+                text: "MOVES: " + actualCount + " -- STAR COUNT: " + starCount + " --  Seconds: " + seconds,
                 icon: "success",
                 button: "Ok!",
             });
@@ -132,17 +135,17 @@ $(document).ready(function() {
 
     function checkForStarReduction(){
         switch(moveCounter) {
-            case 6:
+            case 12:
                 $(".stars li i").eq(0).removeClass("fa fa-star");
                 $(".stars li i").eq(0).addClass("fa fa-star-o");
                 starCount--;
                 break;
-            case 12:
+            case 16:
                 $(".stars li i").eq(1).removeClass("fa fa-star");
                 $(".stars li i").eq(1).addClass("fa fa-star-o");
                 starCount--;
                 break;
-            case 18:
+            case 24:
                 $(".stars li i").eq(2).removeClass("fa fa-star");
                 $(".stars li i").eq(2).addClass("fa fa-star-o");
                 starCount--;
@@ -163,4 +166,5 @@ $(document).ready(function() {
         moveCounter = 0;
         $(".moves").text(moveCounter);
     });
+
 });
