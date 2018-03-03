@@ -2,6 +2,7 @@ $(document).ready(function() {
     var card1;
     var card2;
     var matchCount = 0;
+    var moveCounter = 0;
     var starCount = 3;
     var deck = $(".deck");
     var timerStart = Date.now();
@@ -53,9 +54,9 @@ $(document).ready(function() {
     }
 
     // Shuffle and Deal two sets of cards
-    shuffle(cards);
+    // shuffle(cards);
     deal(cards);
-    shuffle(cards);
+    // shuffle(cards);
     deal(cards);
 
     /*
@@ -114,6 +115,11 @@ $(document).ready(function() {
         $('.' + faClass).parent().removeClass("animated headShake"); 
         $('.' + faClass).parent().addClass("match animated bounce");
 
+        // //add the timer on page
+        // $( "." ).append( "<p>Test</p>" );
+
+
+
         // Display a message with final score when the cards have matched
         matchCount++;
         actualCount = moveCounter + 1;
@@ -124,8 +130,27 @@ $(document).ready(function() {
                 title: "Congratulations! You won!",
                 text: "MOVES: " + actualCount + " -- STAR COUNT: " + starCount + " --  Seconds: " + seconds,
                 icon: "success",
-                button: "Ok!",
-            });
+                buttons:{
+                    catch: {
+                        text: "Reset",
+                        value: "reset"
+                      },
+                      defeat: {
+                          text: "Ok",
+                          value: "ok"
+                      }
+                }
+            }).then((value) => {
+                switch (value) {
+               
+                  case "reset":
+                    reset();
+                    break;
+
+                  case "ok":
+                    break;
+                }
+              });
         };
     };
 
@@ -135,7 +160,7 @@ $(document).ready(function() {
 
     function checkForStarReduction(){
         switch(moveCounter) {
-            case 12:
+            case 8:
                 $(".stars li i").eq(0).removeClass("fa fa-star");
                 $(".stars li i").eq(0).addClass("fa fa-star-o");
                 starCount--;
@@ -145,26 +170,33 @@ $(document).ready(function() {
                 $(".stars li i").eq(1).addClass("fa fa-star-o");
                 starCount--;
                 break;
-            case 24:
-                $(".stars li i").eq(2).removeClass("fa fa-star");
-                $(".stars li i").eq(2).addClass("fa fa-star-o");
-                starCount--;
-                break;
+
         }
     };
 
     // Increment the move counter and display on page
-    var moveCounter = 0;
+
     $(".card").click(function() {
-        moveCounter++
         $(".moves").text(moveCounter);
+        moveCounter++;
     });
 
     // Reset
-    $(".restart").click(function(){
-        $(".card").removeClass("open show match no-match animated bounce headshake");
-        moveCounter = 0;
-        $(".moves").text(moveCounter);
+    $(".restart").click(function() {
+        reset();
     });
 
+    function reset(){
+        $(".card").removeClass("open show match no-match animated bounce headshake");
+
+            timerStart = Date.now();
+            moveCounter = 0;
+            matchCount = 0;
+            $(".stars li i").eq(1).removeClass("fa fa-star-o");
+            $(".stars li i").eq(1).addClass("fa fa-star");
+            $(".stars li i").eq(0).removeClass("fa fa-star-o");
+            $(".stars li i").eq(0).addClass("fa fa-star");
+            starCount = 3;
+            $(".moves").text(moveCounter);
+    };
 });
