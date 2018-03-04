@@ -1,20 +1,16 @@
-# Memory Game Project
+# Memory-Game
 
-## Table of Contents
+This is a  browser-based card matching game written in javascript for my Udacity nano degree.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+### How to play:
 
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+* Click a card to flip it over, you will see its **symbol**.
+* Click a second card. This one will flip too. Did you _match_ the symbols? If not, try again.
+* If the cards did match, both cards will stay flipped over.
+* If the cards do not match, both cards are flipped back face down.
+* The game **ends** once all cards have been matched.
+* A message will pop up once the game is over. 
+* If you press _ok_ the message will desapear and you will have to press the spinning arrow to reset the game.
+* If you press _reset_ you can start the game again.
+* Once you press _reset_, the **star count** resets, the **matched moves** reset and the **countdown**.
+* There will be _comments_ on every single function but the ones that the function name is suggestive.
