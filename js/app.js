@@ -6,7 +6,6 @@ $(document).ready(function() {
     var starCount = 3;
     var deck = $(".deck");
     var timerStart = Date.now();
-    var timerEnd;
     var totalSeconds = 0;
     var timer;
 
@@ -42,22 +41,22 @@ $(document).ready(function() {
             temporaryValue = array[currentIndex];
             array[currentIndex] = array[randomIndex];
             array[randomIndex] = temporaryValue;
-        }
+        };
         return array;
-    }
+    };
 
     // Deal Function
     function deal(cards){
         // Deal all the cards needed
-        for (i=0; i < cards.length; i++) {
+        for(i=0; i < cards.length; i++) {
             deck.append("<li class ='card'><i class ='fa fa-" + cards[i] + "'></i></li>");
-        }
-    }
+        };
+    };
 
     // Shuffle and Deal two sets of cards
-    shuffle(cards);
+    // shuffle(cards);
     deal(cards);
-    shuffle(cards);
+    // shuffle(cards);
     deal(cards);
 
     /*
@@ -75,19 +74,23 @@ $(document).ready(function() {
     $(".card").on("click", function() {
         checkForStarReduction();
         checkForStartCounter();
-        if(openCards.length == 0 ) {
+
+        var faClass = $(this).find("i").attr("class");
+        var className = faClass.slice(3);
+        addtoList(faClass);
+
+        if(openCards.length == 1 ) {
             card1 = this;
             openAndShow($(this));
-            var faClass = $(this).find("i").attr("class");
-            addtoList(faClass);
-        }else{
+        };
+        if(openCards.length == 2 ) {
             card2 = this;
+
             openAndShow($(this));
-            var faClass = $(this).find("i").attr("class");
-            addtoList(faClass);
-            matchOrClose(card1, card2, className = faClass.slice(3));
+
+            matchOrClose(card1, card2, className);
             clearOpenCardsArray();
-        }
+        };
     });
 
     function openAndShow(card) {
@@ -101,25 +104,27 @@ $(document).ready(function() {
 
     function matchOrClose(card1, card2, faClass){
         // If they do not match, shake and close them
-        if(openCards[0] != openCards[1]) {
+        if(openCards[0] !== openCards[1]) {
             $(card1).addClass("no-match").addClass("animated headShake");
             $(card2).addClass("no-match").addClass("animated headShake");
 
             setTimeout(function() {
                 $(card1).removeClass("open show no-match");
                 $(card2).removeClass("open show no-match");
+                $(card1).removeClass("animated headShake");
+                $(card2).removeClass("animated headShake");
             }, 1000);
             return;
-        }
+        }else if (card1 != card2 ) {
+            // They match, so show match
+            $(card1).addClass("match animated bounce"); 
+            $(card2).addClass("match animated bounce");
+            matchCount++;
+        };
 
-        // They match, so show match
-        $("." + faClass).parent().removeClass("show"); 
-        $("." + faClass).parent().removeClass("animated headShake"); 
-        $("." + faClass).parent().addClass("match animated bounce");
 
         // Display a message with final score when the cards have matched
-        matchCount++;
-        if(matchCount == 8){
+        if(matchCount == 8) {
             $(".timer").remove();
             swal({
                 title: "Congratulations! You won!",
@@ -129,15 +134,15 @@ $(document).ready(function() {
                     catch: {
                         text: "Reset",
                         value: "reset"
-                      },
+                    },
                       defeat: {
                           text: "Ok",
                           value: "ok"
-                      }
+                    }
                 }
             }).then((value) => {
                 switch (value) {
-               
+
                   case "reset":
                     reset();
                     break;
@@ -165,7 +170,6 @@ $(document).ready(function() {
                 $(".stars li i").eq(1).addClass("fa fa-star-o");
                 starCount--;
                 break;
-
         }
     };
 
@@ -209,8 +213,6 @@ $(document).ready(function() {
 
     function reset(){
         $(".card").removeClass("open show match no-match animated bounce headshake");
-
-            timerStart = Date.now();
             moveCounter = 0;
             matchCount = 0;
             totalSeconds = 0;
