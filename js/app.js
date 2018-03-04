@@ -1,19 +1,19 @@
 $(document).ready(function() {
-    var card1;
-    var card2;
-    var matchCount = 0;
-    var moveCounter = 0;
-    var starCount = 3;
-    var deck = $(".deck");
-    var timerStart = Date.now();
-    var totalSeconds = 0;
-    var timer;
+    let card1;
+    let card2;
+    let matchCount = 0;
+    let moveCounter = 0;
+    let starCount = 3;
+    let deck = $(".deck");
+    let timerStart = Date.now();
+    let totalSeconds = 0;
+    let timer;
 
     // Create an array to hold open cards
-    var openCards = [];
+    const openCards = [];
 
     // Create a list that holds all of the cards
-    var cards = [
+    const cards = [
         "diamond",
         "plane",
         "anchor",
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
     // Shuffle function from http://stackoverflow.com/a/2450976
     function shuffle(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
+        let currentIndex = array.length, temporaryValue, randomIndex;
 
         while (currentIndex !== 0) {
             randomIndex = Math.floor(Math.random() * currentIndex);
@@ -75,8 +75,8 @@ $(document).ready(function() {
         checkForStarReduction();
         checkForStartCounter();
 
-        var faClass = $(this).find("i").attr("class");
-        var className = faClass.slice(3);
+        let faClass = $(this).find("i").attr("class");
+        const className = faClass.slice(3);
         addtoList(faClass);
 
         if(openCards.length == 1 ) {
@@ -189,8 +189,8 @@ $(document).ready(function() {
         if(moveCounter == 0){
             $("body").prepend("<section><div class='timer'><label id='minutes'>00</label>:<label id='seconds'>00</label></div></section>");
 
-            var minutesLabel = document.getElementById("minutes");
-            var secondsLabel = document.getElementById("seconds");
+            const minutesLabel = document.getElementById("minutes");
+            const secondsLabel = document.getElementById("seconds");
 
             timer = setInterval(setTime, 1000);
 
@@ -201,7 +201,7 @@ $(document).ready(function() {
             };
 
             function pad(val) {
-                var valString = val + "";
+                let valString = val + "";
                 if (valString.length < 2) {
                     return "0" + valString;
                 } else {
