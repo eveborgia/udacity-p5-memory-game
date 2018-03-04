@@ -7,6 +7,8 @@ $(document).ready(function() {
     var deck = $(".deck");
     var timerStart = Date.now();
     var timerEnd;
+    var totalSeconds = 0;
+    var timer;
 
     // Create an array to hold open cards
     var openCards = [];
@@ -46,7 +48,6 @@ $(document).ready(function() {
 
     // Deal Function
     function deal(cards){
-
         // Deal all the cards needed
         for (i=0; i < cards.length; i++) {
             deck.append('<li class ="card"><i class ="fa fa-' + cards[i] + '"></i></li>');
@@ -54,9 +55,9 @@ $(document).ready(function() {
     }
 
     // Shuffle and Deal two sets of cards
-    // shuffle(cards);
+    shuffle(cards);
     deal(cards);
-    // shuffle(cards);
+    shuffle(cards);
     deal(cards);
 
     /*
@@ -73,6 +74,7 @@ $(document).ready(function() {
     // Add card1 and card2 to the empthy array
     $(".card").on("click", function() {
         checkForStarReduction();
+        checkForStartCounter();
         if(openCards.length == 0 ) {
             card1 = this;
             openAndShow($(this));
@@ -115,20 +117,13 @@ $(document).ready(function() {
         $('.' + faClass).parent().removeClass("animated headShake"); 
         $('.' + faClass).parent().addClass("match animated bounce");
 
-        // //add the timer on page
-        // $( "." ).append( "<p>Test</p>" );
-
-
-
         // Display a message with final score when the cards have matched
         matchCount++;
-        actualCount = moveCounter + 1;
         if(matchCount == 8){
-           timerEnd = Date.now();
-           seconds = (timerEnd - timerStart) / 1000;
+            $(".timer").remove();
             swal({
                 title: "Congratulations! You won!",
-                text: "MOVES: " + actualCount + " -- STAR COUNT: " + starCount + " --  Seconds: " + seconds,
+                text: "MOVES: " + moveCounter + " -- STAR COUNT: " + starCount + " --  Seconds: " + totalSeconds,
                 icon: "success",
                 buttons:{
                     catch: {
@@ -186,17 +181,51 @@ $(document).ready(function() {
         reset();
     });
 
+    function checkForStartCounter(){
+        if(moveCounter == 0){
+            $('body').prepend('<section><div class="timer"><label id="minutes">00</label>:<label id="seconds">00</label></div></section>')
+
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
+
+            timer = setInterval(setTime, 1000);
+
+            function setTime() {
+                ++totalSeconds;
+                secondsLabel.innerHTML = pad(totalSeconds % 60);
+                minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+            };
+
+            function pad(val) {
+                var valString = val + "";
+                if (valString.length < 2) {
+                    return "0" + valString;
+                } else {
+                    return valString;
+                    };
+            };
+        };
+    };
+
     function reset(){
         $(".card").removeClass("open show match no-match animated bounce headshake");
 
             timerStart = Date.now();
             moveCounter = 0;
             matchCount = 0;
+            totalSeconds = 0;
+            starCount = 3;
+
             $(".stars li i").eq(1).removeClass("fa fa-star-o");
             $(".stars li i").eq(1).addClass("fa fa-star");
             $(".stars li i").eq(0).removeClass("fa fa-star-o");
             $(".stars li i").eq(0).addClass("fa fa-star");
-            starCount = 3;
+
             $(".moves").text(moveCounter);
+
+            clearInterval(timer);
+            $(".timer").remove();
     };
+
+
 });
