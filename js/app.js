@@ -190,7 +190,7 @@ $(document).ready(function() {
 
     function checkForStartCounter() {
         if(moveCounter == 0) {
-            $("body").prepend("<section><div class='timer'><label id='minutes'>00</label>:<label id='seconds'>00</label></div></section>");
+            $("body div section").prepend("<section><div class='timer'><label id='minutes'>00</label>:<label id='seconds'>00</label></div></section>");
 
             var minutesLabel = document.getElementById("minutes");
             var secondsLabel = document.getElementById("seconds");
