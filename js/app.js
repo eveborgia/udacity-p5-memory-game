@@ -10,7 +10,7 @@ $(document).ready(function() {
     let timer;
 
     // Create an array to hold open cards
-    const openCards = [];
+    let openCards = [];
 
     // Create a list that holds all of the cards
     const cards = [
@@ -54,9 +54,9 @@ $(document).ready(function() {
     };
 
     // Shuffle and Deal two sets of cards
-    // shuffle(cards);
+    shuffle(cards);
     deal(cards);
-    // shuffle(cards);
+    shuffle(cards);
     deal(cards);
 
     /*
@@ -76,7 +76,7 @@ $(document).ready(function() {
         checkForStartCounter();
 
         let faClass = $(this).find("i").attr("class");
-        const className = faClass.slice(3);
+        let className = faClass.slice(3);
         addtoList(faClass);
 
         if(openCards.length == 1 ) {
@@ -189,8 +189,8 @@ $(document).ready(function() {
         if(moveCounter == 0){
             $("body").prepend("<section><div class='timer'><label id='minutes'>00</label>:<label id='seconds'>00</label></div></section>");
 
-            const minutesLabel = document.getElementById("minutes");
-            const secondsLabel = document.getElementById("seconds");
+            let minutesLabel = document.getElementById("minutes");
+            let secondsLabel = document.getElementById("seconds");
 
             timer = setInterval(setTime, 1000);
 
