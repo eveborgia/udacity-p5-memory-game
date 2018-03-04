@@ -23,7 +23,7 @@ $(document).ready(function() {
         "leaf",
         "bicycle",
         "bomb"
-    ]
+    ];
 
     /*
     * Display the cards on the page
@@ -50,7 +50,7 @@ $(document).ready(function() {
     function deal(cards){
         // Deal all the cards needed
         for (i=0; i < cards.length; i++) {
-            deck.append('<li class ="card"><i class ="fa fa-' + cards[i] + '"></i></li>');
+            deck.append("<li class ='card'><i class ='fa fa-" + cards[i] + "'></i></li>");
         }
     }
 
@@ -113,9 +113,9 @@ $(document).ready(function() {
         }
 
         // They match, so show match
-        $('.' + faClass).parent().removeClass("show"); 
-        $('.' + faClass).parent().removeClass("animated headShake"); 
-        $('.' + faClass).parent().addClass("match animated bounce");
+        $("." + faClass).parent().removeClass("show"); 
+        $("." + faClass).parent().removeClass("animated headShake"); 
+        $("." + faClass).parent().addClass("match animated bounce");
 
         // Display a message with final score when the cards have matched
         matchCount++;
@@ -183,7 +183,7 @@ $(document).ready(function() {
 
     function checkForStartCounter(){
         if(moveCounter == 0){
-            $('body').prepend('<section><div class="timer"><label id="minutes">00</label>:<label id="seconds">00</label></div></section>')
+            $("body").prepend("<section><div class='timer'><label id='minutes'>00</label>:<label id='seconds'>00</label></div></section>");
 
             var minutesLabel = document.getElementById("minutes");
             var secondsLabel = document.getElementById("seconds");
@@ -226,6 +226,5 @@ $(document).ready(function() {
             clearInterval(timer);
             $(".timer").remove();
     };
-
 
 });
