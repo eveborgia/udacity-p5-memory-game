@@ -1,19 +1,19 @@
 $(document).ready(function() {
-    let card1;
-    let card2;
-    let matchCount = 0;
-    let moveCounter = 0;
-    let starCount = 3;
-    let deck = $(".deck");
-    let timerStart = Date.now();
-    let totalSeconds = 0;
-    let timer;
+    var card1;
+    var card2;
+    var matchCount = 0;
+    var moveCounter = 0;
+    var starCount = 3;
+    var deck = $(".deck");
+    var timerStart = Date.now();
+    var totalSeconds = 0;
+    var timer;
 
     // Create an array to hold open cards
-    let openCards = [];
+    var openCards = [];
 
     // Create a list that holds all of the cards
-    const cards = [
+    var cards = [
         "diamond",
         "plane",
         "anchor",
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
     // Shuffle function from http://stackoverflow.com/a/2450976
     function shuffle(array) {
-        let currentIndex = array.length, temporaryValue, randomIndex;
+        var currentIndex = array.length, temporaryValue, randomIndex;
 
         while (currentIndex !== 0) {
             randomIndex = Math.floor(Math.random() * currentIndex);
@@ -71,12 +71,12 @@ $(document).ready(function() {
     */
 
     // Add card1 and card2 to the empthy array
-    $(".card").on("click", function() {
+    $(".deck").on("click", ".card", function() {
         checkForStarReduction();
         checkForStartCounter();
 
-        let faClass = $(this).find("i").attr("class");
-        let className = faClass.slice(3);
+        var faClass = $(this).find("i").attr("class");
+        var className = faClass.slice(3);
         addtoList(faClass);
 
         if(openCards.length == 1 ) {
@@ -192,8 +192,8 @@ $(document).ready(function() {
         if(moveCounter == 0) {
             $("body").prepend("<section><div class='timer'><label id='minutes'>00</label>:<label id='seconds'>00</label></div></section>");
 
-            let minutesLabel = document.getElementById("minutes");
-            let secondsLabel = document.getElementById("seconds");
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
 
             timer = setInterval(setTime, 1000);
 
@@ -204,7 +204,7 @@ $(document).ready(function() {
             };
 
             function pad(val) {
-                let valString = val + "";
+                var valString = val + "";
                 if (valString.length < 2) {
                     return "0" + valString;
                 } else {
@@ -230,6 +230,12 @@ $(document).ready(function() {
 
             clearInterval(timer);
             $(".timer").remove();
+
+            $( ".deck" ).empty();
+            shuffle(cards);
+            deal(cards);
+            shuffle(cards);
+            deal(cards);
     };
 
 });
