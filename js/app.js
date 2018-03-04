@@ -102,7 +102,7 @@ $(document).ready(function() {
         openCards.push(card.slice(6));
     };
 
-    function matchOrClose(card1, card2, faClass){
+    function matchOrClose(card1, card2, faClass) {
         // If they do not match, shake and close them
         if(openCards[0] !== openCards[1]) {
             $(card1).addClass("no-match").addClass("animated headShake");
@@ -154,18 +154,18 @@ $(document).ready(function() {
         };
     };
 
-    function clearOpenCardsArray(){
+    function clearOpenCardsArray() {
         openCards = [];
     };
 
-    function checkForStarReduction(){
+    function checkForStarReduction() {
         switch(moveCounter) {
-            case 8:
-                $(".stars li i").eq(0).removeClass("fa fa-star");
-                $(".stars li i").eq(0).addClass("fa fa-star-o");
+            case 14:
+                $(".stars li i").eq(2).removeClass("fa fa-star");
+                $(".stars li i").eq(2).addClass("fa fa-star-o");
                 starCount--;
                 break;
-            case 16:
+            case 21:
                 $(".stars li i").eq(1).removeClass("fa fa-star");
                 $(".stars li i").eq(1).addClass("fa fa-star-o");
                 starCount--;
@@ -176,8 +176,11 @@ $(document).ready(function() {
     // Increment the move counter and display on page
 
     $(".card").click(function() {
-        $(".moves").text(moveCounter);
-        moveCounter++;
+        if (card1 != card2) {
+            $(".moves").text(moveCounter);
+            moveCounter++;
+        }
+
     });
 
     // Reset
@@ -185,8 +188,8 @@ $(document).ready(function() {
         reset();
     });
 
-    function checkForStartCounter(){
-        if(moveCounter == 0){
+    function checkForStartCounter() {
+        if(moveCounter == 0) {
             $("body").prepend("<section><div class='timer'><label id='minutes'>00</label>:<label id='seconds'>00</label></div></section>");
 
             let minutesLabel = document.getElementById("minutes");
@@ -211,7 +214,7 @@ $(document).ready(function() {
         };
     };
 
-    function reset(){
+    function reset() {
         $(".card").removeClass("open show match no-match animated bounce headshake");
             moveCounter = 0;
             matchCount = 0;
@@ -220,8 +223,8 @@ $(document).ready(function() {
 
             $(".stars li i").eq(1).removeClass("fa fa-star-o");
             $(".stars li i").eq(1).addClass("fa fa-star");
-            $(".stars li i").eq(0).removeClass("fa fa-star-o");
-            $(".stars li i").eq(0).addClass("fa fa-star");
+            $(".stars li i").eq(2).removeClass("fa fa-star-o");
+            $(".stars li i").eq(2).addClass("fa fa-star");
 
             $(".moves").text(moveCounter);
 
